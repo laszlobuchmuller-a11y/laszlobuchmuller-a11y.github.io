@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>České Budějovice 2025 – Útiterv</title>
+  <meta name="description" content="Háromnapos programterv Krems, České Budějovice és Český Krumlov érintésével. Mobilbarát, napokra bontott nézettel." />
+  <style>
+    :root{
+      --bg: #0b0d10;
+      --card: #12161b;
+      --muted: #8da2b7;
+      --text: #e8eef5;
+      --accent: #4cc2ff;
+      --accent-2:#00e6a8;
+      --ring: rgba(76,194,255,.45);
+      --shadow: 0 6px 20px rgba(3,10,20,.35);
+      --shadow-soft: 0 2px 10px rgba(3,10,20,.25);
+      --radius: 18px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f6f7fb; --card:#ffffff; --text:#0d1b2a; --muted:#5b7089; --ring: rgba(17,93,164,.2); --shadow:0 10px 24px rgba(14,44,80,.12); --shadow-soft:0 2px 10px rgba(14,44,80,.08); }
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Top bar */
+    .top{
+      position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0)), var(--bg);
+      backdrop-filter:saturate(1.3) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:14px 16px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand .dot{width:10px;height:10px;border-radius:9999px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    h1{font-size:20px;margin:0}
+    .sub{color:var(--muted);font-size:13px}
+
+    /* Nav */
+    .nav{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+    .tab{
+      appearance:none;background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text);
+      padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:600;
+      box-shadow:var(--shadow-soft);
+    }
+    .tab[data-active="true"]{border-color:transparent;background:linear-gradient(135deg, var(--accent), var(--accent-2));color:#001018}
+    .jump{margin-left:auto}
+    .jump select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:var(--card);color:var(--text)}
+
+    /* Day section */
+    section{scroll-margin-top:100px}
+    .day{
+      margin:18px auto 28px;max-width:980px;padding:0 16px
+    }
+    .day h2{font-size:22px;margin:10px 0 14px}
+    .meta{color:var(--muted);font-size:14px;margin-bottom:8px}
+
+    /* Timeline */
+    .timeline{display:grid;gap:12px}
+    .item{
+      display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:start;background:var(--card);
+      border-radius:var(--radius);padding:14px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)
+    }
+    .time{font-weight:800;letter-spacing:.5px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .loc{color:var(--muted);font-size:14px;margin-bottom:6px}
+    .note{font-size:14px}
+    .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .chip{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.12);padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.03)}
+
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:10px}
+    .gallery img{width:100%;height:140px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.08)}
+
+    /* Utilities */
+    .muted{color:var(--muted)}
+    .code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:13px; background:rgba(0,0,0,.25); padding:6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,.08)}
+
+    /* Footer */
+    footer{max-width:980px;margin:30px auto 70px;padding:0 16px;color:var(--muted);font-size:13px}
+
+    @media (max-width:640px){
+      .item{grid-template-columns:72px 1fr;padding:12px}
+      .time{font-size:14px}
+      .card h3{font-size:16px}
+      .nav{gap:8px}
+      .tab{padding:8px 12px}
+    }
+
+    /* Print */
+    @media print{
+      .top, .jump{display:none}
+      body{background:#fff;color:#000}
+      .item{box-shadow:none;border-color:#ddd}
+      a{color:#000}
+    }
+  </style>
+</head>
+<body>
+  <!-- Top / Nav -->
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <div>
+          <h1>České Budějovice 2025 – Útiterv</h1>
+          <div class="sub">2025.09.12–14 • Napokra bontva • Mobilbarát</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Nap választó">
+        <button class="tab" data-target="#nap-1">2025.09.12. Péntek</button>
+        <button class="tab" data-target="#nap-2">2025.09.13. Szombat</button>
+        <button class="tab" data-target="#nap-3">2025.09.14. Vasárnap</button>
+        <div class="jump" style="min-width:210px">
+          <label class="muted" for="jump-select" style="display:block;font-size:12px;margin-bottom:6px">Ugrás napra</label>
+          <select id="jump-select" aria-label="Ugrás napra">
+            <option value="#nap-1">Péntek (09.12)</option>
+            <option value="#nap-2">Szombat (09.13)</option>
+            <option value="#nap-3">Vasárnap (09.14)</option>
+          </select>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Day 1 -->
+  <section id="nap-1" class="day">
+    <h2>2025.09.12. Péntek</h2>
+    <div class="meta">Útvonal: Diósd → Krems → České Budějovice</div>
+
+    <div class="timeline">
+      <div class="item">
+        <div class="time">08:00</div>
+        <div class="card">
+          <h3>Indulás – Diósd TH</h3>
+          <div class="loc">Találkozó és indulás.</div>
+          <div class="links">
+            <a class="chip" href="https://maps.app.goo.gl/Cz126ZF8PDSdV2768" target="_blank" rel="noopener">Útvonal a térképen</a>
+<img src="Volvobusz.jpg" alt="Volvobusz" style="max-width:10%; height:auto; border-radius:12px;">
+
+            <a class="chip" href="https://khellfood.hu/haromszog-szendvicseink/" target="_blank" rel="noopener">Éhen/szomjanhalás ellen</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">12:30</div>
+        <div class="card">
+          <h3>Érkezés – Krems an der Donau</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/search?sca_esv=cc2881f0e79ae444&hl=hu-HU&q=Krems+an+der+Donau" target="_blank" rel="noopener">Krems – keresés</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">13:00</div>
+        <div class="card">
+          <h3>Ebéd – Hofbräu am Steinertor</h3>
+          <div class="loc"><a href="https://www.hofbraeu-am-steinertor.at/" target="_blank" rel="noopener">Étterem weboldala</a></div>
+          <div class="note">Ajánlott fogások:</div>
+          <div class="links">
+            <a class="chip" href="https://www.mindmegette.hu/recept/husleves-palacsintatesztaval" target="_blank" rel="noopener">Házi marhahúsleves</a>
+            <a class="chip" href="https://www.mindmegette.hu/recept/eredeti-becsi-szelet-wiener-schnitzel" target="_blank" rel="noopener">Bécsi szelet</a>
+            <a class="chip" href="https://www.mindmegette.hu/recept/apfelstrudel-osztrak-almas-retes" target="_blank" rel="noopener">Almás rétes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">13:30</div>
+        <div class="card">
+          <h3>Városnézés – Krems</h3>
+          <div class="note">Térkép, javasolt útvonal, nevezetességek. Indulás: Hofbräu am Steinertor.</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">14:30</div>
+        <div class="card">
+          <h3>Indulás – Krems → České Budějovice</h3>
+          <div class="links">
+            <a class="chip" href="https://maps.app.goo.gl/AD3XDyndhx8gwYgG7" target="_blank" rel="noopener">Útvonal Kremsből</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">17:30</div>
+        <div class="card">
+          <h3>Érkezés – České Budějovice</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/search?client=firefox-b-d&q=ceske+budejovice" target="_blank" rel="noopener">Város – keresés</a>
+          </div>
+          <div class="note">Szállás: Wellness hotel &amp; minipivovar (<a href="https://www.knezinek.cz/" target="_blank" rel="noopener">knezinek.cz</a>)</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">18:30</div>
+        <div class="card">
+          <h3>Vacsora – Wellness hotel &amp; minipivovar</h3>
+          <div class="loc">Svédasztal</div>
+          <div class="links">
+<a href="menu-pentek.html" class="menu-link">🍴 Péntek esti vacsora</a>
+
+
+
+            <a class="chip" href="https://cf.bstatic.com/xdata/images/hotel/max1024x768/645762468.jpg?k=450de3f5ef2c3cc543fe2ccb1a9f7f56dbab29cf5965924fdd53bb208bca0a0d&o=" target="_blank" rel="noopener">Szállás fotó</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">19:30</div>
+        <div class="card">
+          <h3>Szabad program – Hotel &amp; környék</h3>
+          <div class="links">
+            <a class="chip" href="https://www.knezinek.cz/" target="_blank" rel="noopener">Hotel szolgáltatásai</a>
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Vrbensk%C3%A9+rybn%C3%ADky,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+11,+Csehorsz%C3%A1g" target="_blank" rel="noopener">Vrbenské rybníky</a>
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Sokolsk%C3%BD+ostrov" target="_blank" rel="noopener">Sokolský ostrov</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Day 2 -->
+  <section id="nap-2" class="day">
+    <h2>2025.09.13. Szombat</h2>
+    <div class="meta">České Budějovice – Sörgyár – Városnézés</div>
+
+    <div class="timeline">
+      <div class="item">
+        <div class="time">08:00</div>
+        <div class="card">
+          <h3>Reggeli – Wellness hotel &amp; minipivovar</h3>
+          <div class="loc">Svédasztal</div>
+          <div class="links">
+            <a class="chip" href="http://bistrogarden.hu/webshop/products/getPicture/pid:14/type:main/thumb:false/pictid:/virtual.jpg" target="_blank" rel="noopener">Hangulatkép</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">09:45</div>
+        <div class="card">
+          <h3>Indulás – Hotel → Budvar</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Karol%C3%ADny+Sv%C4%9Btl%C3%A9+512%2F4,+370+04+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+4,+Csehorsz%C3%A1g" target="_blank" rel="noopener">Útvonal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">10:20</div>
+        <div class="card">
+          <h3>Sörgyár-látogatás – Budějovický Budvar</h3>
+          <div class="loc"><a href="https://www.budejovickybudvar.cz/en/home" target="_blank" rel="noopener">Visitor Center</a></div>
+          <div class="note">Figyelem: a sörgyár pincéjében ~2 °C van – hozzatok meleg ruhát!</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">11:45</div>
+        <div class="card">
+          <h3>Séta – České Budějovice</h3>
+          <div class="links">
+            <a class="chip" href="https://maps.app.goo.gl/mQY2rLo6WLtvCQR37" target="_blank" rel="noopener">Séta útvonala</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">13:00</div>
+        <div class="card">
+          <h3>Ebéd – Potrefená Husa</h3>
+          <div class="loc"><a href="https://www.husabudejovice.cz/ceska/" target="_blank" rel="noopener">Étterem</a></div>
+          <div class="links">
+            <a class="chip" href="https://www.mindmegette.hu/recept/marhahusleves-hagyomanyosan" target="_blank" rel="noopener">Húsleves</a>
+            <a class="chip" href="https://www.mindmegette.hu/recept/fokhagymas-rozmaringos-szuzerme" target="_blank" rel="noopener">Szűzérmék grillen</a>
+            <a class="chip" href="https://www.kotanyi.com/en/recipe/ducat-buns-with-spiced-vanilla-cream/" target="_blank" rel="noopener">Dukát kalács</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">14:00</div>
+        <div class="card">
+          <h3>Városnézés – České Budějovice</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/Restaurace+Potrefen%C3%A1+husa+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice/N%C3%A1m%C4%9Bst%C3%AD+P%C5%99emysla+Otakara+II./Black+Tower/Dom+St.+Nikolaus/Al%C5%A1ova+jiho%C4%8Desk%C3%A1+galerie+-+Wortner%C5%AFv+d%C5%AFm/Hradebn%C3%AD/Park+Na+Sadech/Dom+St.+Nikolaus" target="_blank" rel="noopener">Javasolt kör</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">15:00</div>
+        <div class="card">
+          <h3>Indulás – Főtér → Budvar Visitor Center</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/N%C3%A1m%C4%9Bst%C3%AD+P%C5%99emysla+Otakara+II./Budweiser+Budvar+Visitor+Center,+Karol%C3%ADny+Sv%C4%9Btl%C3%A9" target="_blank" rel="noopener">Útvonal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">15:30</div>
+        <div class="card">
+          <h3>Érkezés vissza – Wellness hotel &amp; minipivovar</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/Budweiser+Budvar+Visitor+Center,+Karol%C3%ADny+Sv%C4%9Btl%C3%A9/Hotel+Kn%C4%9B%C5%BE%C3%ADnek" target="_blank" rel="noopener">Útvonal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">15:30</div>
+        <div class="card">
+          <h3>Szabad program – Hotel &amp; környék</h3>
+          <div class="links">
+            <a class="chip" href="https://www.knezinek.cz/" target="_blank" rel="noopener">Hotel szolgáltatásai</a>
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Vrbensk%C3%A9+rybn%C3%ADky" target="_blank" rel="noopener">Vrbenské rybníky</a>
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Sokolsk%C3%BD+ostrov" target="_blank" rel="noopener">Sokolský ostrov</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">18:00</div>
+        <div class="card">
+          <h3>Vacsora – Wellness hotel &amp; minipivovar</h3>
+          <div class="loc">Svédasztal</div>
+          <div class="links">
+<a href="menu-szombat.html" class="menu-link">🍴 Szombat esti vacsora</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">19:00</div>
+        <div class="card">
+          <h3>Szabad program – Hotel &amp; környék</h3>
+          <div class="links">
+            <a class="chip" href="https://www.knezinek.cz/" target="_blank" rel="noopener">Hotel szolgáltatásai</a>
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Vrbensk%C3%A9+rybn%C3%ADky" target="_blank" rel="noopener">Vrbenské rybníky</a>
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/Sokolsk%C3%BD+ostrov" target="_blank" rel="noopener">Sokolský ostrov</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Day 3 -->
+  <section id="nap-3" class="day">
+    <h2>2025.09.14. Vasárnap</h2>
+    <div class="meta">Český Krumlov kirándulás, hazautazás</div>
+
+    <div class="timeline">
+      <div class="item">
+        <div class="time">07:00</div>
+        <div class="card">
+          <h3>Reggeli – Wellness hotel &amp; minipivovar</h3>
+          <div class="loc">Svédasztal</div>
+          <div class="links">
+            <a class="chip" href="http://bistrogarden.hu/webshop/products/getPicture/pid:14/type:main/thumb:false/pictid:/virtual.jpg" target="_blank" rel="noopener">Hangulatkép</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">09:00</div>
+        <div class="card">
+          <h3>Indulás – Hotel → Český Krumlov</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/Hotel+Kn%C4%9B%C5%BE%C3%ADnek,+%C4%8Cesk%C3%A9+Bud%C4%9Bjovice+5,+Csehorsz%C3%A1g/BUS+STOP,+%C4%8Cesk%C3%BD+Krumlov+..." target="_blank" rel="noopener">Útvonal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">09:45</div>
+        <div class="card">
+          <h3>Érkezés &amp; városnézés – Český Krumlov</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/search?q=ceske+krumlov" target="_blank" rel="noopener">Keresés</a>
+            <a class="chip" href="https://www.google.com/maps/dir/BUS+STOP,+%C4%8Cesk%C3%BD+Krumlov/Z%C3%A1meck%C3%A9+schody/The+Castle+Garden/Latr%C3%A1n/n%C3%A1m.+Svornosti+1/Church+of+St.+Vitus/Egon+Schiele+Art+Centrum/Kr%C4%8Dma+%C5%A0atlava" target="_blank" rel="noopener">Séta útvonala</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">12:00</div>
+        <div class="card">
+          <h3>Ebéd – Krčma Šatlava</h3>
+          <div class="loc"><a href="https://www.satlava.cz/en/tavern-satlava-cesky-krumlov/1/" target="_blank" rel="noopener">Étterem</a></div>
+          <div class="links">
+            <a class="chip" href="https://www.mindmegette.hu/recept/gyors-fokhagymaleves" target="_blank" rel="noopener">Fokhagyma leves</a>
+            <a class="chip" href="https://www.mindmegette.hu/recept/sorben-sult-csulok-egyszeruen" target="_blank" rel="noopener">Sült csülök</a>
+            <a class="chip" href="https://www.mindmegette.hu/recept/marlenka-egyszerubben" target="_blank" rel="noopener">Mézes sütemény</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">13:00</div>
+        <div class="card">
+          <h3>Indulás – Český Krumlov → Hegyeshalom</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/381+01,+Csehorsz%C3%A1g,+%C4%8Cesk%C3%BD+Krumlov,+Nemocni%C4%8Dn%C3%AD,+%C4%8Cesky+Krumlov+Bus+Parking/Hegyeshalom,+Paprika+Cs%C3%A1rda" target="_blank" rel="noopener">Útvonal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">17:30</div>
+        <div class="card">
+          <h3>Érkezés &amp; vacsora – Hegyeshalom, Paprika Csárda</h3>
+          <div class="links">
+            <a class="chip" href="https://www.paprikacsarda.hu/" target="_blank" rel="noopener">Paprika Csárda</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">18:30</div>
+        <div class="card">
+          <h3>Indulás – Hegyeshalom → Diósd</h3>
+          <div class="links">
+            <a class="chip" href="https://www.google.com/maps/dir/Hegyeshalom,+Paprika+Cs%C3%A1rda,+Mikl%C3%B3shalmi+%C3%BAt/Di%C3%B3sd,+Vadr%C3%B3zsa+%C3%BAt+21" target="_blank" rel="noopener">Útvonal</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="time">20:30</div>
+        <div class="card">
+          <h3>Érkezés – Diósd TH</h3>
+          <div class="links">
+            <a class="chip" href="https://pentaclean.hu/images/H%C3%ADrek/penta_epuletfoto_k.jpg" target="_blank" rel="noopener">Helyszín fotó</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    Tipp: add hozzá ezt az oldalt a telefonod kezdőképernyőjéhez a gyors elérésért. A helyi hálózati (\\\\….) menüfájlok böngészőből nem mindig nyithatók meg – érdemes offline is elmenteni.
+  </footer>
+
+  <script>
+    // Tab gombok – görgetés és aktív állapot
+    const tabs = document.querySelectorAll('.tab');
+    const sections = ['#nap-1','#nap-2','#nap-3'].map(id=>document.querySelector(id));
+
+    function setActiveByHash(hash){
+      tabs.forEach(btn=>btn.dataset.active = (btn.dataset.target===hash).toString());
+    }
+    tabs.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const target = btn.dataset.target;
+        document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
+        setActiveByHash(target);
+        history.replaceState(null, '', target);
+      });
+    });
+
+    // Dropdown
+    const sel = document.getElementById('jump-select');
+    sel.addEventListener('change', e=>{
+      const target = e.target.value;
+      document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
+      setActiveByHash(target);
+      history.replaceState(null, '', target);
+    });
+
+    // IntersectionObserver: aktív fül automatikus
+    const obs = new IntersectionObserver((entries)=>{
+      const visible = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(visible){ setActiveByHash('#'+visible.target.id); }
+    },{rootMargin:'-40% 0px -55% 0px', threshold:[0,0.25,0.5,0.75,1]});
+    sections.forEach(s=>obs.observe(s));
+
+    // Induláskor hash alapján kiemelés
+    if(location.hash){ setActiveByHash(location.hash); }
+  </script>
+</body>
+</html>
